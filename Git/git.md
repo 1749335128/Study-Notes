@@ -39,16 +39,12 @@ c = commit
 o = checkout
 # ...
 
-//或者在受支持的命令行
+//修改.bash_profile或者在受支持的命令行运行
 alias gs='git status'
 alias ga='git add'
 alias gb='git branch'
 alias gc='git commit'
 ```
-
-
-
-
 
 ### 版本控制
 
@@ -110,8 +106,6 @@ alias gc='git commit'
 
 `git log --name-status`显示提交的文件状态
 
-
-
 ### 撤销和修改
 
 修改提交致版本库的信息(包括说明和文件内容)
@@ -122,12 +116,56 @@ alias gc='git commit'
 
 `get reset HEAD --文件名`拉取最近一次提交版本库的文件到暂存区，操作不影响工作区
 
-
+`git restore`把文件从缓存区撤销，回到未被追踪的状态
 
 ### 分支操作
 
-`git branch 分支名`创建分支
+创建分支
+
+`git branch 分支名`
+
+`git checkout -b 分支名`
 
 `git branch [-a]`查看分支,所有分支
 
  `git checkout dev`切换分支
+
+第一种改名方法
+
+`git checkout -b 新分支 原分支`
+
+`git branch -d 原分支`//删除原分支
+
+第二种改名方法
+
+`git branch -m 分支名`为当前分支改名
+
+`git branch -m 原分支名 新分支名`为指定分支改名
+
+`git branch -d 分支名`删除分支
+
+查看merged情况
+
+`git branch --merged`//合并过的分支
+
+`git branch --no-merged`//未合并的分支
+
+`git merge 分支名`分支合并(当前分支与其他分支合并)
+
+`git stash`将所有未提交的修改（包括暂存的和非暂存的）都保存起来，用于后续恢复当前工作目录。
+
+`git stash apply stash@{1}`恢复某个暂时保存的工作
+
+`git stash pop`恢复最近一次缓存的工作
+
+`git stash list`查看所有的stash
+
+`git stash drop [stash@{0}]`移除stash
+
+`git stash clear`删除所有的stash
+
+`git archive 分支名 --prefix='hngy/' --forma=zip > hngy.zip`将文件打包配置路径和格式
+
+`git rebase master[主分支]`主分支已经改变，无法合并分支，需要先同步主分支内容然后在合并
+
+### 拉取和推送
