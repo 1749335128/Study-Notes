@@ -1,2 +1,3 @@
-# -Study-Notes
+# Study Notes
+
 Personal Professional Study Notes
