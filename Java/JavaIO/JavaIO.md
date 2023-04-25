@@ -83,6 +83,18 @@ String content = new String(buffer,0,read);
 fileInputStream.close();
 ```
 
+- FileReader
+
+```java
+InputStreamReader fileReader =new FileReader(file);
+FileReader fileReader1 =new FileReader(file, Charset.defaultCharset());
+fileReader.read();//读取到文件末尾返回-1
+fileReader.read(new char[5],0,5);//读取5个字符
+fileReader.close();
+```
+
+
+
 - FileOutputStream: 文件输出流
 
 ```java
@@ -98,6 +110,19 @@ fileOutputStream.write(content.getBytes());
 fileOutputStream.write(buffer,0,3);
 fileOutputStream.close();
 ```
+
+- FileWriter(<mark>使用后必须close或者flush，否则写入找不到文件</mark>)
+
+```java
+OutputStreamWriter f = new FileWriter(fileName,true);//追加模式或者覆盖模式
+FileWriter fileWriter =new FileWriter(new File(fileName));
+char[] a ="是五个字符".toCharArray();
+fileWriter.write('a');//写入一个字符
+fileWriter.write(a,0,5);//写入5个字符
+fileWriter.close();
+```
+
+
 
 - BufferedInputStream: 缓冲字节输入流
 
