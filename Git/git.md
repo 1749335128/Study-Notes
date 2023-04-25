@@ -168,8 +168,6 @@ alias gc='git commit'
 
 `git rebase master[主分支]`主分支已经改变，无法合并分支，需要先同步主分支内容然后在合并
 
-
-
 ### 远程操作
 
 `git clone -o 主机名 url`克隆时指定主机名
@@ -195,8 +193,6 @@ alias gc='git commit'
 `git branch --set-upstream 本地分支 主机名/远程分支`手动建立追踪关系
 
 `git pull -p`如果远程主机删除某个分支，在`git pull`时并不会删除本地的分支，此命令可以同步删除分支
-
-
 
 `git push [-f,--force,--force-with-lease] 远程主机名 本地分支名:远程分支名`用法同上，将分支推送到远程主机上，如果远程没有该分支将会自动创建。
 
