@@ -126,7 +126,7 @@ alias gc='git commit'
 
 `git checkout -b 分支名`
 
-`git branch [-a]`查看分支,所有分支
+`git branch [-a,-r]`查看所有分支,远程分支
 
  `git checkout dev`切换分支
 
@@ -168,4 +168,38 @@ alias gc='git commit'
 
 `git rebase master[主分支]`主分支已经改变，无法合并分支，需要先同步主分支内容然后在合并
 
+
+
+### 远程操作
+
+`git clone -o 主机名 url`克隆时指定主机名
+
+`git remote add 主机名 url`添加远程主机
+
+`git remote rm 主机名`删除远程主机
+
+`git remote renmae 原主机名 新主机名`修改主机名
+
+`git remote [-v]`列出所有远程主机[查看主机网址]
+
+`git remote show 主机名`查看该主机详细信息
+
+`git fetch 主机名 [分支名]`远程主机更新，全部[分支]拉取回本地
+
 ### 拉取和推送
+
+`git pull [--rebase] 远程主机名 远程分支名:本地分支名`取回远程主机某个分支的更新，再与本地的指定分支合并。等同于先 git fetch 再 git merge。
+
+注:与当前分支合并冒号内容可以省略,已经与当前分支存在追踪关系，只需写明远程主机名即可`git pull origin`，`git pull`当前分支自动与唯一一个追踪分支进行合并(慎用)。
+
+`git branch --set-upstream 本地分支 主机名/远程分支`手动建立追踪关系
+
+`git pull -p`如果远程主机删除某个分支，在`git pull`时并不会删除本地的分支，此命令可以同步删除分支
+
+
+
+`git push [-f,--force,--force-with-lease] 远程主机名 本地分支名:远程分支名`用法同上，将分支推送到远程主机上，如果远程没有该分支将会自动创建。
+
+注：<mark>省略本地分支名将会删除远程分支,force命令极不安全</mark>,等同于`git push 远程主机名 --delete 分支名`
+
+`git push -u origin master`如果当前分支与多个主机存在追踪关系，可以使用该命令指定一个默认主机，以便`git push`推送当前分支致远程主机。
