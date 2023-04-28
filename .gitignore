@@ -1,4 +1,5 @@
 *.zip
 java/**/.idea
 java/**/*.txt
+java/**/*.dat
 java/**/out

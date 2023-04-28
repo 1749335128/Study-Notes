@@ -1,5 +1,24 @@
 # JavaIO流
 
+## 字节流和处理流(包装流)
+
+节点流和处理流的区别和联系
+
+1. 节点流是底层流/低级流,直接跟数据源相接
+   处理流(包装流)包装节点流，既可以消除不同节点流的实现差异，也可以提供更方便的方
+
+2. 法来完成输入输出。[源码理解]处理流(也叫包装流)对节点流进行包装，使用了修饰器设
+
+3. 计模式，不会直接与数据源相连 [模拟修饰器设计模式]
+
+处理流的功能主要体现在以下两个方面:
+
+1. 性能的提高:主要以增加缓冲的方式来提高输入输出的效率
+
+2. 操作的便捷: 处理流可能提供了一系列便捷的方法来一次输入输出大批量的数据，使用更加灵活方便
+
+![javaIO流文件操作实例详解图片示例 | 红颜丽人](https://ts1.cn.mm.bing.net/th/id/R-C.62329de02346cda22e6b3a01e03e99c7?rik=pugHWARKdreSSA&riu=http%3a%2f%2fimg.blog.csdn.net%2f20130826164223890&ehk=q0247nhYlS%2fIiLAQlhoA3c0Qs4jzuIJSO2C0o2LSnJY%3d&risl=&pid=ImgRaw&r=0)
+
 ## 文件
 
 #### 一 、文件流
@@ -93,8 +112,6 @@ fileReader.read(new char[5],0,5);//读取5个字符
 fileReader.close();
 ```
 
-
-
 - FileOutputStream: 文件输出流
 
 ```java
@@ -122,8 +139,6 @@ fileWriter.write(a,0,5);//写入5个字符
 fileWriter.close();
 ```
 
-
-
 - BufferedInputStream: 缓冲字节输入流
 
 - ObjectInputStream: 对象字节输入流
@@ -142,4 +157,27 @@ fileOutputStream.write(buffer,0,readLength);
 }
 fileInputStream.close();
 fileOutputStream.close();
+```
+
+## 对象处理流
+
+- ObjectInputStream：将二进制的数据读取为内存中的对象，也称为反序列化的过程。
+
+- ObjectOutputStream：将对象或基本数据类型转化成二进制数据(包含值和数据类型)，即序列化的过程。
+
+- 序列化 的好处在于可将任何实现了 Serializable 接口的对象转化为 字节数据 ， 使其在保存和传输时可被还原。
+
+<mark>注：不能序列化 static 和 transient 修饰的成员变量</mark>,如果需要让某个对象支持序列化机制，则必须让对象所属的类及其属性是可序列化的，该类必须实现如下两个接口之一。否则，会抛出NotSerializableException异常： Serialization接口（常用）和 Externalizable
+
+
+凡是实现Serializable接口的类都有一个表示序列化版本标识符的静态变量： private static final long serialVersionUID;
+serialVersionUID的作用是，如果你把这个对象序列化之后，再反序列化时，会根据这个编号来识别原来第哪个person对象从而还原。
+
+```java
+FileOutputStream outputStream =new FileOutputStream("object.txt");  
+objectOutputStream =new ObjectOutputStream(outputStream);  
+objectOutputStream.writeObject(student);  
+FileInputStream inStream = new FileInputStream("object.txt");  
+p = new ObjectInputStream(inStream);  
+Student m = (Student)p.readObject();
 ```

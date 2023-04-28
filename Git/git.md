@@ -199,3 +199,7 @@ alias gc='git commit'
 注：<mark>省略本地分支名将会删除远程分支,force命令极不安全</mark>,等同于`git push 远程主机名 --delete 分支名`
 
 `git push -u origin master`如果当前分支与多个主机存在追踪关系，可以使用该命令指定一个默认主机，以便`git push`推送当前分支致远程主机。
+
+### 实例
+
+1. gitignore文件配置失效,在配置之前部分文件已经被git仓库进行追踪，需要删除本地的缓存，进行重新提交。`git rm -r --cached .或填写路径`然后在添加到暂存区进行重新提交。

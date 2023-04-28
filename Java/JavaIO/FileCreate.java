@@ -1,11 +1,41 @@
 import java.io.*;
 import java.nio.charset.Charset;
+import java.time.LocalDate;
+import java.time.Month;
 
 public class FileCreate {
 
     public static void main(String[] args) {
-        UserFile userFile = new UserFile();
-        userFile.fileWriter();
+        Student student =new Student();
+        student.setGender('F');
+        student.setName("可汗");
+        student.setScore(66);
+        LocalDate localDate = LocalDate.now();
+        student.setBirthday(new Birthday(localDate.getYear(),localDate.getMonthValue(),localDate.getDayOfMonth()));
+        ObjectOutputStream objectOutputStream = null;
+        ObjectInputStream p=null;
+        try{
+FileOutputStream outputStream =new FileOutputStream("object.txt");
+objectOutputStream =new ObjectOutputStream(outputStream);
+objectOutputStream.writeObject(student);
+FileInputStream inStream = new FileInputStream("object.txt");
+p = new ObjectInputStream(inStream);
+Student m = (Student)p.readObject();
+            System.out.println(m);
+        }catch (IOException e){
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }finally {
+            try {
+                p.close();
+                objectOutputStream.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+
     }
 
 }
@@ -113,5 +143,128 @@ class UserFile {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+}
+
+class Student implements  Serializable{
+    private String name;
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "name='" + name + '\'' +
+                ", score=" + score +
+                ", gender=" + gender +
+                ", birthday=" + birthday +
+                '}';
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public char getGender() {
+        return gender;
+    }
+
+    public void setGender(char gender) {
+        this.gender = gender;
+    }
+
+    public Birthday getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Birthday birthday) {
+        this.birthday = birthday;
+    }
+
+    private int score;
+    private char gender;
+    private Birthday birthday;
+
+
+}
+class Birthday implements Externalizable{
+    private int year;
+
+    public Birthday() {
+        super();
+    }
+
+    @Override
+    public String toString() {
+        return "Birthday{" +
+                "year=" + year +
+                ", month=" + month +
+                ", day=" + day +
+                ", letterStates='" + letterStates + '\'' +
+                ", num=" + num +
+                '}';
+    }
+
+    public Birthday(int year, int month, int dayOfMonth) {
+        this.year = year;
+        this.month = month;
+        this.day = dayOfMonth;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public int getDay() {
+        return day;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
+    }
+
+    private int month;
+    private int day;
+    //用于定制地序列化此类
+    private String letterStates ="123";
+    private int num = 88;
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+        out.writeInt(year);
+        out.writeInt(month);
+        out.writeInt(day);
+        out.writeObject("123");
+        out.write(num); //在序列化的数据最后加个88
+    }
+
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        year = in.readInt();
+        month = in.readInt();
+        day = in.readInt();
+        letterStates = (String)in.readObject();
+        num = in.read();  //把数字88加进来
     }
 }
