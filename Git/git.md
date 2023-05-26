@@ -110,7 +110,7 @@ alias gc='git commit'
 
 修改提交致版本库的信息(包括说明和文件内容)
 
-`git comit --amend`撤销上一次提交  将暂存区文件重新提交
+`git commit --amend`撤销上一次提交  将暂存区文件重新提交
 
 `git checkout --文件名`   拉取暂存区文件 并将其替换成工作区文件
 
@@ -203,3 +203,10 @@ alias gc='git commit'
 ### 实例
 
 1. gitignore文件配置失效,在配置之前部分文件已经被git仓库进行追踪，需要删除本地的缓存，进行重新提交。`git rm -r --cached .或填写路径`然后在添加到暂存区进行重新提交。
+2. git强制拉取到本地
+
+```git
+git fetch --all  
+git reset --hard origin/master 
+git pu
+```
